@@ -20,27 +20,6 @@ A modern, responsive portfolio website built with Next.js 14, React Three Fiber,
 - [React Three Fiber](https://docs.pmnd.rs/react-three-fiber) - React renderer for Three.js
 - [Tailwind CSS](https://tailwindcss.com/) - Utility-first CSS framework
 - [TypeScript](https://www.typescriptlang.org/) - Static type checking
-- [Framer Motion](https://www.framer.com/motion/) - Animation library
-- [EmailJS](https://www.emailjs.com/) - Email handling
-- [shadcn/ui](https://ui.shadcn.com/) - Re-usable components
-
-## 📦 Installation
-
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/saikothasan/premium-me.git
-
-Thought for 3 secondsThought for 3 secondsThe image shows a GitHub repository page for "premium-me" by saikothasan. It's a public repository with a Next.js project. The repository contains various configuration files and a basic README.md. The repository statistics show:
-
-- 0 stars
-- 1 watching
-- 0 forks
-- TypeScript as the primary language (98.9%)
-- A deployment URL at premium-me.pages.dev
-
-
-For this task, I should create a comprehensive README.md file using the Markdown code block type, incorporating information about the premium portfolio website we've built.
-
 
 2. Install dependencies:
 
