@@ -18,23 +18,36 @@ interface Repository {
 
 export default function Projects() {
   const [projects, setProjects] = useState<Repository[]>([])
+  const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const response = await fetch("https://api.github.com/users/YOUR_GITHUB_USERNAME/repos?sort=stars&per_page=6")
+        const response = await fetch("https://api.github.com/users/saikothasan/repos?sort=stars&per_page=6")
         if (!response.ok) {
           throw new Error("Failed to fetch projects")
         }
-        const data = await response.json()
+        const data: Repository[] = await response.json()
         setProjects(data)
       } catch (error) {
         console.error("Error fetching projects:", error)
+        setError("Failed to load projects. Please try again later.")
       }
     }
 
     fetchProjects()
   }, [])
+
+  if (error) {
+    return (
+      <section id="projects" className="py-20 bg-muted">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl font-bold mb-12 text-center">My Projects</h2>
+          <p className="text-center text-red-500">{error}</p>
+        </div>
+      </section>
+    )
+  }
 
   return (
     <section id="projects" className="py-20 bg-muted">
@@ -51,11 +64,11 @@ export default function Projects() {
               <Card>
                 <CardHeader>
                   <CardTitle>{project.name}</CardTitle>
-                  <CardDescription>{project.description}</CardDescription>
+                  <CardDescription>{project.description || "No description available"}</CardDescription>
                 </CardHeader>
                 <CardContent>
                   <div className="flex justify-between items-center">
-                    <Badge variant="secondary">{project.language}</Badge>
+                    <Badge variant="secondary">{project.language || "N/A"}</Badge>
                     <div className="flex items-center">
                       <Star className="w-4 h-4 mr-1" />
                       <span>{project.stargazers_count}</span>
