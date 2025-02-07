@@ -1,37 +1,15 @@
 "use client"
 
-import { Canvas } from "@react-three/fiber"
-import { OrbitControls, Text } from "@react-three/drei"
+import dynamic from "next/dynamic"
 import { motion } from "framer-motion"
 import { Card, CardContent } from "@/components/ui/card"
-import type { ReactNode } from "react"
+import Loading from "./loading"
+import ErrorBoundary from "./error-boundary"
 
-const skills = ["React", "Node.js", "Three.js", "TypeScript", "Next.js", "GraphQL", "Tailwind CSS", "MongoDB"]
-
-interface WordProps {
-  children: ReactNode
-  [key: string]: any
-}
-
-function Word({ children, ...props }: WordProps) {
-  return (
-    <Text fontSize={0.5} letterSpacing={0.1} font="/fonts/helvetiker_regular.typeface.json" {...props}>
-      {children}
-    </Text>
-  )
-}
-
-function Cloud() {
-  return (
-    <group>
-      {skills.map((skill, i) => (
-        <Word key={i} position={[Math.random() * 4 - 2, Math.random() * 4 - 2, Math.random() * 4 - 2]}>
-          {skill}
-        </Word>
-      ))}
-    </group>
-  )
-}
+const SkillsCloud = dynamic(() => import("./SkillsCloud"), {
+  ssr: false,
+  loading: () => <Loading />,
+})
 
 export default function Skills() {
   return (
@@ -48,12 +26,9 @@ export default function Skills() {
         <Card>
           <CardContent className="p-0">
             <div className="h-[400px] md:h-[500px]">
-              <Canvas camera={{ position: [0, 0, 5], fov: 75 }}>
-                <ambientLight intensity={0.5} />
-                <pointLight position={[10, 10, 10]} />
-                <OrbitControls enableZoom={false} autoRotate autoRotateSpeed={1} />
-                <Cloud />
-              </Canvas>
+              <ErrorBoundary error={new Error("Failed to load skills cloud")} reset={() => window.location.reload()}>
+                <SkillsCloud />
+              </ErrorBoundary>
             </div>
           </CardContent>
         </Card>
