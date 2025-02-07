@@ -16,7 +16,7 @@ export default function Logo3D() {
     <Float speed={1.5} rotationIntensity={0.5} floatIntensity={0.5}>
       <Text3D
         ref={meshRef}
-        font="/fonts/Geist_Bold.json"
+        font="/helvetiker_regular.typeface.json"
         size={1.5}
         height={0.2}
         curveSegments={12}
