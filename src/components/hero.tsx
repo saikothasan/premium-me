@@ -1,22 +1,23 @@
 "use client"
 
-import { Canvas } from "@react-three/fiber"
-import { OrbitControls } from "@react-three/drei"
+import dynamic from "next/dynamic"
 import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
-import Logo3D from "./Logo3D"
+import Loading from "./loading"
+import ErrorBoundary from "./error-boundary"
+
+const Scene = dynamic(() => import("./Scene"), {
+  ssr: false,
+  loading: () => <Loading />,
+})
 
 export default function Hero() {
   return (
     <section className="h-screen flex items-center justify-center relative overflow-hidden">
       <div className="absolute inset-0 z-0">
-        <Canvas camera={{ position: [0, 0, 5], fov: 75 }}>
-          <ambientLight intensity={0.5} />
-          <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} />
-          <pointLight position={[-10, -10, -10]} />
-          <OrbitControls enableZoom={false} />
-          <Logo3D />
-        </Canvas>
+        <ErrorBoundary error={new Error("Failed to load 3D scene")} reset={() => window.location.reload()}>
+          <Scene />
+        </ErrorBoundary>
       </div>
       <div className="z-10 text-center px-4 bg-background/80 backdrop-blur-sm py-8 rounded-lg">
         <motion.h1
