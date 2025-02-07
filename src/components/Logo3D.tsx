@@ -1,9 +1,12 @@
-import { useRef } from "react"
+"use client"
+
+import { useRef, Suspense } from "react"
 import { useFrame } from "@react-three/fiber"
 import { Text3D, Float } from "@react-three/drei"
 import type * as THREE from "three"
+import Loading from "./loading"
 
-export default function Logo3D() {
+function Logo() {
   const meshRef = useRef<THREE.Mesh>(null)
 
   useFrame((state, delta) => {
@@ -30,6 +33,14 @@ export default function Logo3D() {
         <meshNormalMaterial />
       </Text3D>
     </Float>
+  )
+}
+
+export default function Logo3D() {
+  return (
+    <Suspense fallback={<Loading />}>
+      <Logo />
+    </Suspense>
   )
 }
 
