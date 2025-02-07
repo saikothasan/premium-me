@@ -4,12 +4,18 @@ import { Canvas } from "@react-three/fiber"
 import { OrbitControls, Text } from "@react-three/drei"
 import { motion } from "framer-motion"
 import { Card, CardContent } from "@/components/ui/card"
+import type { ReactNode } from "react"
 
 const skills = ["React", "Node.js", "Three.js", "TypeScript", "Next.js", "GraphQL", "Tailwind CSS", "MongoDB"]
 
-function Word({ children, ...props }) {
+interface WordProps {
+  children: ReactNode
+  [key: string]: any
+}
+
+function Word({ children, ...props }: WordProps) {
   return (
-    <Text fontSize={0.5} letterSpacing={0.1} font="/fonts/Inter-Bold.ttf" {...props}>
+    <Text fontSize={0.5} letterSpacing={0.1} font="/fonts/helvetiker_regular.typeface.json" {...props}>
       {children}
     </Text>
   )
